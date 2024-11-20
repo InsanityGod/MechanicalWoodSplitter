@@ -1,0 +1,15 @@
+{
+  "type": "code",
+  "modid": "mechanicalwoodsplitter",
+  "name": "Mechanical Wood Splitter",
+  "authors": [
+    "TheInsanityGod"
+  ],
+  "description": "An addon for 'in dappled groves' to fix the issue of running out of sticks to craft axes",
+  "version": "1.0.0",
+  "dependencies": {
+    "game": "",
+    "survival": "",
+    "indappledgroves": ""
+  }
+}

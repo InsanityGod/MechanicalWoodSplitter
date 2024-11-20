@@ -1,0 +1,89 @@
+{
+  "editor": {
+    "allAngles": true,
+    "entityTextureMode": false
+  },
+  "textureWidth": 16,
+  "textureHeight": 16,
+  "textureSizes": {
+  },
+  "textures": {
+    "metal": "game:block/metal/anvil/tinbronze"
+  },
+  "elements": [
+    {
+      "name": "hammer-head",
+      "from": [ 5.5, -1.5, 7.0 ],
+      "to": [ 10.5, 5.5, 10.0 ],
+      "rotationOrigin": [ 8.0, 1.5, 8.5 ],
+      "rotationX": -90.0,
+      "faces": {
+        "north": {
+          "texture": "#metal",
+          "uv": [ 4.0, 2.0, 9.0, 9.0 ]
+        },
+        "east": {
+          "texture": "#metal",
+          "uv": [ 7.0, 0.0, 10.0, 7.0 ]
+        },
+        "south": {
+          "texture": "#metal",
+          "uv": [ 9.0, 0.0, 14.0, 7.0 ]
+        },
+        "west": {
+          "texture": "#metal",
+          "uv": [ 0.0, 3.0, 3.0, 10.0 ]
+        },
+        "up": {
+          "texture": "#metal",
+          "uv": [ 5.0, 10.0, 8.0, 15.0 ],
+          "rotation": 90
+        },
+        "down": {
+          "texture": "#metal",
+          "uv": [ 11.0, 6.0, 14.0, 11.0 ],
+          "rotation": 90
+        }
+      },
+      "children": [
+        {
+          "name": "hammer-head2",
+          "from": [ -0.1, -1.8, 0.01 ],
+          "to": [ 3.4, 1.7, 2.99 ],
+          "rotationOrigin": [ 2.0, 1.0, -15.0 ],
+          "rotationZ": 45.0,
+          "faces": {
+            "north": {
+              "texture": "#metal",
+              "uv": [ 4.0, 2.0, 7.5, 5.5 ]
+            },
+            "east": {
+              "texture": "#metal",
+              "uv": [ 7.0, 0.0, 9.5, 3.5 ]
+            },
+            "south": {
+              "texture": "#metal",
+              "uv": [ 9.0, 0.0, 12.5, 3.5 ]
+            },
+            "west": {
+              "texture": "#metal",
+              "uv": [ 0.0, 3.0, 2.5, 6.5 ]
+            },
+            "up": {
+              "texture": "#metal",
+              "uv": [ 2.0, 7.0, 4.5, 10.5 ],
+              "rotation": 90
+            },
+            "down": {
+              "texture": "#metal",
+              "uv": [ 11.0, 6.0, 13.5, 9.5 ],
+              "rotation": 90
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "animations": [
+  ]
+}
