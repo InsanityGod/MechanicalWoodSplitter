@@ -1,7 +1,7 @@
 {
   "itemcraftdesc-helveaxe-*": "Used with mechanical power to automate wood splitting",
 
-  "item-helveaxe": "Helve axe",
+  "item-helveaxe-*": "Helve axe",
   "item-helveaxe-tinbronze": "Tin bronze helve axe",
   "item-helveaxe-bismuthbronze": "Bismuth bronze helve axe",
   "item-helveaxe-blackbronze": "Black bronze helve axe",

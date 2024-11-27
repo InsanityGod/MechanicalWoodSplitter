@@ -57,11 +57,6 @@
   <Content Include="assets\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
-  <None Remove="assets\mechanicalwoodsplitter\itemtypes\helveaxehead.json" />
-  <None Remove="assets\mechanicalwoodsplitter\recipes\grid\helveaxe.json" />
-  <None Remove="assets\mechanicalwoodsplitter\recipes\helveaxehead.json" />
-  <None Remove="assets\mechanicalwoodsplitter\shapes\helveaxe.json" />
-  <None Remove="assets\mechanicalwoodsplitter\shapes\helveaxehead.json" />
   <Content Include="modinfo.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>

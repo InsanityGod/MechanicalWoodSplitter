@@ -1,0 +1,17 @@
+[
+  {
+    "file": "vanvar:itemtypes/helveaxe.json",
+    "op": "addmerge",
+    "path": "/variantgroups",
+    "value": [
+      {
+        "code": "wood",
+        "loadFromProperties": "wildcrafttree:block/wood"
+      }
+    ],
+    "dependsOn": [
+      { "modid": "vanvar" },
+      { "modid": "wildcrafttree" }
+    ]
+  }
+]
