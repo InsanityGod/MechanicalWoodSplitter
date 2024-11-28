@@ -1,5 +1,6 @@
 {
-  "itemcraftdesc-helveaxe-*": "Used with mechanical power to automate wood splitting",
+  "itemdesc-helveaxe-*": "Used with mechanical power to automate wood splitting
+(requires a chopping block instead of an anvil)",
 
   "item-helveaxe-*": "Helve axe",
   "item-helveaxe-tinbronze": "Tin bronze helve axe",
@@ -8,7 +9,7 @@
   "item-helveaxe-iron": "Iron helve axe",
   "item-helveaxe-steel": "Steel helve axe",
   "item-helveaxe-meteoriciron": "Meteoric iron helve axe",
-
+  
   "item-helveaxehead-tinbronze": "Tin bronze helve axe head",
   "item-helveaxehead-bismuthbronze": "Bismuth bronze helve axe head",
   "item-helveaxehead-blackbronze": "Black bronze helve axe head",

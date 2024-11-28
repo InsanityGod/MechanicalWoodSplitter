@@ -1,6 +1,6 @@
 [
   {
-    "file": "vanvar:itemtypes/helveaxe.json",
+    "file": "mechanicalwoodsplitter:itemtypes/helveaxe.json",
     "op": "addmerge",
     "path": "/variantgroups",
     "value": [

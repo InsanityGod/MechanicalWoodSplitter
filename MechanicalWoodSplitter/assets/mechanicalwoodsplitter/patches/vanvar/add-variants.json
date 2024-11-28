@@ -1,0 +1,63 @@
+[
+  {
+    "file": "mechanicalwoodsplitter:itemtypes/helveaxe.json",
+    "op": "add",
+    "path": "/behaviorsByType",
+    "value": {
+      "helveaxe-*-*": [
+        {
+          "name": "VanillaVariants.ItemName",
+          "properties": {
+            "parts": [ "mechanicalwoodsplitter:item-helveaxe-{metal}", " (", "material-{wood}", ")" ]
+          }
+        }
+      ]
+    },
+    "dependsOn": [
+      { "modid": "vanvar" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:itemtypes/helveaxe.json",
+    "op": "addmerge",
+    "path": "/variantgroups",
+    "value": [
+      {
+        "code": "wood",
+        "states": [ "aged" ],
+        "loadFromProperties": "block/wood"
+      },
+      {
+        "code": "metal",
+        "states": [ "tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel" ]
+      }
+    ],
+    "dependsOn": [
+      { "modid": "vanvar" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:itemtypes/helveaxe.json",
+    "op": "addmerge",
+    "path": "/skipVariants",
+    "value": [ "*-oak-*" ],
+    "dependsOn": [
+      { "modid": "vanvar" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:itemtypes/helveaxe.json",
+    "op": "add",
+    "path": "/texturesByType",
+    "value": {
+      "helveaxe-*-*": {
+        "metal": { "base": "game:block/metal/ingot/{metal}" },
+        "oak": { "base": "game:block/wood/debarked/{wood}" },
+        "oak1": { "base": "game:block/wood/debarked/{wood}" }
+      }
+    },
+    "dependsOn": [
+      { "modid": "vanvar" }
+    ]
+  }
+]

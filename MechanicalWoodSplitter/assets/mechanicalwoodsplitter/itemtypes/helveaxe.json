@@ -5,6 +5,7 @@
   "variantgroups": [
     {
       "code": "metal",
+      "combine": "Add",
       "states": [ "tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel" ]
     }
   ],
