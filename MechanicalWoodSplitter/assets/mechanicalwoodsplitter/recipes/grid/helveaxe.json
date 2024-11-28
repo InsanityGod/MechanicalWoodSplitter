@@ -1,22 +1,24 @@
-{
-  ingredientPattern: "H,B,B",
-  ingredients: {
-    "H": {
-      type: "item",
-      code: "helveaxehead-*",
-      name: "metal",
-      allowedVariants: [ "tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel" ]
+[
+  {
+    "ingredientPattern": "H,B,B",
+    "ingredients": {
+      "H": {
+        "type": "item",
+        "code": "helveaxehead-*",
+        "name": "metal",
+        "allowedVariants": [ "tinbronze", "bismuthbronze", "blackbronze", "iron", "meteoriciron", "steel" ]
+      },
+      "B": {
+        "type": "item",
+        "code": "game:plank-*",
+        "quantity": 4
+      }
     },
-    "B": {
-      type: "item",
-      code: "game:plank-*",
-      quantity: 4
+    "width": 1,
+    "height": 3,
+    "output": {
+      "type": "item",
+      "code": "helveaxe-{metal}"
     }
-  },
-  width: 1,
-  height: 3,
-  output: {
-    type: "item",
-    code: "helveaxe-{metal}"
   }
-}
+]

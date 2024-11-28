@@ -1,0 +1,66 @@
+//TODO recipe with 2 variant groups kept refusing to work so temporary workaround
+[
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/helveaxe.json",
+    "op": "replace",
+    "path": "/0/ingredients/B/code",
+    "value": "game:plank-oak",
+    "dependsOn": [
+      { "modid": "vanvar" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/vanvar/helveaxe-tinbronze.json",
+    "op": "replace",
+    "path": "/enabled",
+    "value": "true",
+    "dependsOn": [
+      { "modid": "vanvar" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/vanvar/helveaxe-bismuthbronze.json",
+    "op": "replace",
+    "path": "/enabled",
+    "value": "true",
+    "dependsOn": [
+      { "modid": "vanvar" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/vanvar/helveaxe-blackbronze.json",
+    "op": "replace",
+    "path": "/enabled",
+    "value": "true",
+    "dependsOn": [
+      { "modid": "vanvar" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/vanvar/helveaxe-iron.json",
+    "op": "replace",
+    "path": "/enabled",
+    "value": "true",
+    "dependsOn": [
+      { "modid": "vanvar" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/vanvar/helveaxe-meteoriciron.json",
+    "op": "replace",
+    "path": "/enabled",
+    "value": "true",
+    "dependsOn": [
+      { "modid": "vanvar" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/vanvar/helveaxe-steel.json",
+    "op": "replace",
+    "path": "/enabled",
+    "value": "true",
+    "dependsOn": [
+      { "modid": "vanvar" }
+    ]
+  }
+]

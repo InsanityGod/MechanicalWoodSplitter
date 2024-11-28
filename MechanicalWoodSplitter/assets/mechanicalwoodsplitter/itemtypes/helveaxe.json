@@ -15,6 +15,7 @@
       "groupBy": [ "helveaxe-*" ]
     }
   },
+  "skipVariants": ["helveaxe"],
   "textures": {
     "metal": { "base": "game:block/metal/ingot/{metal}" }
   },

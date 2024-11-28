@@ -1,0 +1,62 @@
+[
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/vanvar/wildcrafttree/helveaxe-tinbronze.json",
+    "op": "replace",
+    "path": "/enabled",
+    "value": "true",
+    "dependsOn": [
+      { "modid": "vanvar" },
+      { "modid": "wildcrafttree" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/vanvar/wildcrafttree/helveaxe-bismuthbronze.json",
+    "op": "replace",
+    "path": "/enabled",
+    "value": "true",
+    "dependsOn": [
+      { "modid": "vanvar" },
+      { "modid": "wildcrafttree" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/vanvar/wildcrafttree/helveaxe-blackbronze.json",
+    "op": "replace",
+    "path": "/enabled",
+    "value": "true",
+    "dependsOn": [
+      { "modid": "vanvar" },
+      { "modid": "wildcrafttree" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/vanvar/wildcrafttree/helveaxe-iron.json",
+    "op": "replace",
+    "path": "/enabled",
+    "value": "true",
+    "dependsOn": [
+      { "modid": "vanvar" },
+      { "modid": "wildcrafttree" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/vanvar/wildcrafttree/helveaxe-meteoriciron.json",
+    "op": "replace",
+    "path": "/enabled",
+    "value": "true",
+    "dependsOn": [
+      { "modid": "vanvar" },
+      { "modid": "wildcrafttree" }
+    ]
+  },
+  {
+    "file": "mechanicalwoodsplitter:recipes/grid/vanvar/wildcrafttree/helveaxe-steel.json",
+    "op": "replace",
+    "path": "/enabled",
+    "value": "true",
+    "dependsOn": [
+      { "modid": "vanvar" },
+      { "modid": "wildcrafttree" }
+    ]
+  }
+]
