@@ -10,6 +10,17 @@ namespace MechanicalWoodSplitter.Items
 {
     public class HelveAxe : Item
     {
-        public FakeBlockEntityAnvil FakeBlockEntityAnvil = new();
+        public readonly FakeBlockEntityAnvil FakeBlockEntityAnvil;
+
+        public float HelveAxeDamage { get; private set; }
+
+        public HelveAxe() => FakeBlockEntityAnvil = new(this);
+
+        public override void OnLoaded(ICoreAPI api)
+        {
+            base.OnLoaded(api);
+
+            HelveAxeDamage = Attributes["HelveAxeDamage"].AsFloat(1);
+        }
     }
 }

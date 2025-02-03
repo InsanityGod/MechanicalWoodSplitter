@@ -13,6 +13,14 @@
   "attributes": {
     "handbook": {
       "groupBy": [ "helveaxe-*" ]
+    },
+    "HelveAxeDamageByType": {
+      "*-tinbronze": 0.5,
+      "*-bismuthbronze": 0.6,
+      "*-blackbronze": 0.8,
+      "*-iron": 1,
+      "*-meteoriciron": 1.5,
+      "*-steel": 2
     }
   },
   "skipVariants": ["helveaxe"],

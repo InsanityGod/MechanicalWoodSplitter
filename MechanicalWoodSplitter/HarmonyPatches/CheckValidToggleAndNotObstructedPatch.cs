@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using InDappledGroves.BlockEntities;
 using MechanicalWoodSplitter.FakeStuff;
 using MechanicalWoodSplitter.Items;
 using System;
@@ -31,14 +32,14 @@ namespace MechanicalWoodSplitter.HarmonyPatches
                 }
 
                 var pos = traverse.Field("anvilPos").GetValue<BlockPos>();
-                var itemDisplay = __instance.Api.World.BlockAccessor.GetBlockEntity<BlockEntityDisplay>(pos);
-                if (itemDisplay != null)
+                var workStation = __instance.Api.World.BlockAccessor.GetBlockEntity<IDGBEWorkstation>(pos);
+                if (workStation != null)
                 {
-                    helveAxe.FakeBlockEntityAnvil.IDGChoppingBlockContainer = itemDisplay;
+                    helveAxe.FakeBlockEntityAnvil.ChoppingBlock = workStation;
                 }
                 else
                 {
-                    helveAxe.FakeBlockEntityAnvil.IDGChoppingBlockContainer = null;
+                    helveAxe.FakeBlockEntityAnvil.ChoppingBlock = null;
                 }
                 
             }

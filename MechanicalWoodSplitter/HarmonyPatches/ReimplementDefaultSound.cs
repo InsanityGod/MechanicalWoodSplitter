@@ -12,7 +12,7 @@ using Vintagestory.GameContent;
 namespace MechanicalWoodSplitter.HarmonyPatches
 {
     [HarmonyPatch(typeof(BlockEntityAnvil), nameof(BlockEntityAnvil.OnHelveHammerHit))]
-    public class ReimplementDefaultSound
+    public static class ReimplementDefaultSound
     {
         public static void Postfix(BlockEntityAnvil __instance)
         {

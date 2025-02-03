@@ -13,7 +13,7 @@ namespace MechanicalWoodSplitter.HarmonyPatches
     [HarmonyPatch(typeof(BlockHelveHammer), "OnBlockInteractStart")]
     public static class PlaceAxeOnHelveBasePatch
     {
-        private static bool Prefix(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, BlockHelveHammer __instance, ref bool __result)
+        public static bool Prefix(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, BlockHelveHammer __instance, ref bool __result)
         {
             if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BEHelveHammer bEHelveHammer && bEHelveHammer.HammerStack == null && !byPlayer.InventoryManager.ActiveHotbarSlot.Empty && byPlayer.InventoryManager.ActiveHotbarSlot.Itemstack.Collectible.FirstCodePart().Equals("helveaxe"))
             {

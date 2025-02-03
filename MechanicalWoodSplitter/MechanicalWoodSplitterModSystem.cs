@@ -14,19 +14,15 @@ namespace MechanicalWoodSplitter
     {
         private Harmony harmony;
 
-        // Called on server and client
-        // Useful for registering block/entity classes on both sides
         public override void Start(ICoreAPI api)
         {
+            api.RegisterItemClass($"{Mod.Info.ModID}.helveaxe", typeof(HelveAxe));
+            
             if (!Harmony.HasAnyPatches(Mod.Info.ModID))
             {
                 harmony = new Harmony(Mod.Info.ModID);
-                harmony.PatchAll(); // Applies all harmony patches
-                var choppingBlockType = AccessTools.TypeByName("InDappledGroves.BlockEntities.IDGBEChoppingBlock");
-                var choppingBlockConstructor = AccessTools.Constructor(choppingBlockType);
-                harmony.Patch(choppingBlockConstructor, postfix: new HarmonyMethod(typeof(FixItemStackSizeOfChoppingBlock).GetMethod(nameof(FixItemStackSizeOfChoppingBlock.PostFix))));
+                harmony.PatchAllUncategorized();
             }
-            api.RegisterItemClass($"{Mod.Info.ModID}.helveaxe", typeof(HelveAxe));
         }
 
         public override void Dispose() => harmony?.UnpatchAll(Mod.Info.ModID);

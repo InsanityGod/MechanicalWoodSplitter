@@ -15,7 +15,7 @@ namespace MechanicalWoodSplitter.HarmonyPatches
     [HarmonyPatch(typeof(BEHelveHammer), "GenHammerMesh")]
     public static class UseItemShapeForHelveAnimator
     {
-        private static bool Prefix(BEHelveHammer __instance, ref MeshData __result)
+        public static bool Prefix(BEHelveHammer __instance, ref MeshData __result)
         {
             Block block = __instance.Api.World.BlockAccessor.GetBlock(__instance.Pos);
 
