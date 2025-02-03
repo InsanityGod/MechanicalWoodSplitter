@@ -1,36 +1,38 @@
 ﻿using HarmonyLib;
 using InDappledGroves.BlockEntities;
-using MechanicalWoodSplitter.Items;
-using System;
-using Vintagestory.API.Common;
-using Vintagestory.API.Common.Entities;
-using Vintagestory.API.Config;
-using Vintagestory.API.MathTools;
+using MechanicalWoodSplitter.Code.EntityBehaviors;
+using MechanicalWoodSplitter.Code.Items;
 using Vintagestory.GameContent;
+using Vintagestory.GameContent.Mechanics;
+using Vintagestory.API.Common;
+using Vintagestory.API.MathTools;
 
-namespace MechanicalWoodSplitter.FakeStuff
+namespace MechanicalWoodSplitter.Code.FakeStuff
 {
     public class FakeBlockEntityAnvil : BlockEntityAnvil
     {
         public IDGBEWorkstation ChoppingBlock { get; internal set; }
-        
-        public readonly HelveAxe HelveAxe;
 
-        //caching this since someone made their config class internal -_-
-        public float? baseWorkstationMiningSpdMult_cache;
+        public ItemStack HelveAxeStack => (HelveAxeBehavior.Blockentity as BEHelveHammer)?.HammerStack;
 
-        public FakeBlockEntityAnvil(HelveAxe helveAxe) => HelveAxe = helveAxe;
+        public readonly HelveAxeBaseBlockEntitybehavior HelveAxeBehavior;
+
+        public FakeBlockEntityAnvil(HelveAxeBaseBlockEntitybehavior helveAxeBehavior) => HelveAxeBehavior = helveAxeBehavior;
+
+        //caching this since someone made their config class internal :P
+        private float? baseWorkstationMiningSpdMult_cache;
 
         public override void OnHelveHammerHit()
         {
-            if (Api.Side != EnumAppSide.Server || ChoppingBlock == null) return;
+            if (HelveAxeBehavior.Api.Side != EnumAppSide.Server || ChoppingBlock == null || HelveAxeStack?.Collectible is not HelveAxe) return;
+
             ChoppingBlock.recipecomplete = false;
             if (ChoppingBlock.InputSlot.Empty) return;
-            
-            Api.World.PlaySoundAt(new AssetLocation("sounds/block/chop2"), ChoppingBlock.Pos.X, ChoppingBlock.Pos.Y, ChoppingBlock.Pos.Z, null);
+
+            HelveAxeBehavior.Api.World.PlaySoundAt(new AssetLocation("sounds/block/chop2"), ChoppingBlock.Pos.X, ChoppingBlock.Pos.Y, ChoppingBlock.Pos.Z, null);
 
             ChoppingBlock.recipeHandler.GetMatchingRecipes(
-                Api.World,
+                HelveAxeBehavior.Api.World,
                 ChoppingBlock.InputSlot,
                 "chopping",
                 ChoppingBlock.Block.Attributes["inventoryclass"].ToString(),
@@ -49,16 +51,16 @@ namespace MechanicalWoodSplitter.FakeStuff
 
         public bool ProgressRecipe()
         {
-            if (Api.Side != EnumAppSide.Server) return false;
+            if (HelveAxeBehavior.Api.Side != EnumAppSide.Server) return false;
             baseWorkstationMiningSpdMult_cache ??= Traverse.Create(AccessTools.TypeByName("InDappledGroves.Util.Config.IDGToolConfig")).Property("Current").Property<float>("baseWorkstationResistanceMult").Value;
-            
-            ItemStack inputStack = ChoppingBlock.InputSlot.Itemstack;
-            ChoppingBlock.recipeHandler.resistance = ((inputStack.Block != null) ? inputStack.Block.Resistance : inputStack.Item.Attributes["resistance"].AsFloat(0f)) * baseWorkstationMiningSpdMult_cache.Value;
 
-            ChoppingBlock.recipeHandler.curDmgFromMiningSpeed = HelveAxe.HelveAxeDamage * (1f + baseWorkstationMiningSpdMult_cache.Value);
+            ItemStack inputStack = ChoppingBlock.InputSlot.Itemstack;
+            ChoppingBlock.recipeHandler.resistance = (inputStack.Block != null ? inputStack.Block.Resistance : inputStack.Item.Attributes["resistance"].AsFloat(0f)) * baseWorkstationMiningSpdMult_cache.Value;
+
+            ChoppingBlock.recipeHandler.curDmgFromMiningSpeed = (HelveAxeStack.Collectible as HelveAxe).HelveAxeDamage * (1f + baseWorkstationMiningSpdMult_cache.Value);
             ChoppingBlock.recipeHandler.currentMiningDamage += 0.5f * ChoppingBlock.recipeHandler.curDmgFromMiningSpeed;
             ChoppingBlock.recipeHandler.recipeProgress = ChoppingBlock.recipeHandler.currentMiningDamage / ChoppingBlock.recipeHandler.resistance;
-            
+
             if (ChoppingBlock.recipeHandler.currentMiningDamage >= ChoppingBlock.recipeHandler.resistance)
             {
                 FinishRecipe();
@@ -72,29 +74,29 @@ namespace MechanicalWoodSplitter.FakeStuff
         {
             ChoppingBlock.recipecomplete = true;
             ItemStack resolvedItemstack = ChoppingBlock.recipeHandler.recipe.ReturnStack.ResolvedItemstack;
-            var craftedStack = ChoppingBlock.recipeHandler.recipe.TryCraftNow(Api, ChoppingBlock.InputSlot);
+            var craftedStack = ChoppingBlock.recipeHandler.recipe.TryCraftNow(HelveAxeBehavior.Api, ChoppingBlock.InputSlot);
             ChoppingBlock.InputSlot.Itemstack = null;
-            
+
             if (resolvedItemstack.Collectible.FirstCodePart(0) != "air")
             {
-                if(resolvedItemstack.Collectible.FirstCodePart(0) == craftedStack.Collectible.FirstCodePart(0))
+                if (resolvedItemstack.Collectible.FirstCodePart(0) == craftedStack.Collectible.FirstCodePart(0))
                 {
                     craftedStack.StackSize += 1;
                 }
                 else ChoppingBlock.InputSlot.Itemstack = resolvedItemstack.Clone();
             }
-            
+
             SpawnOutput(craftedStack);
 
             ChoppingBlock.recipeHandler.clearRecipe(true);
         }
 
         public void SpawnOutput(ItemStack output)
-		{
-			for (int i = output.StackSize; i > 0; i--)
+        {
+            for (int i = output.StackSize; i > 0; i--)
             {
-				Api.World.SpawnItemEntity(new ItemStack(output.Collectible, 1), ChoppingBlock.Pos.ToVec3d(), new Vec3d(0.05000000074505806, 0.10000000149011612, 0.05000000074505806));
-			}
-		}
+                HelveAxeBehavior.Api.World.SpawnItemEntity(new ItemStack(output.Collectible, 1), ChoppingBlock.Pos.ToVec3d(), new Vec3d(0.05000000074505806, 0.10000000149011612, 0.05000000074505806));
+            }
+        }
     }
 }

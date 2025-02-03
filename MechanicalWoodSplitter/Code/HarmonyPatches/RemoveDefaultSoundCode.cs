@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vintagestory.GameContent.Mechanics;
 
-namespace MechanicalWoodSplitter.HarmonyPatches
+namespace MechanicalWoodSplitter.Code.HarmonyPatches
 {
     [HarmonyPatch(typeof(BEHelveHammer), "Angle", MethodType.Getter)]
     public static class RemoveDefaultSoundCode

@@ -10,7 +10,7 @@ using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent.Mechanics;
 
-namespace MechanicalWoodSplitter.HarmonyPatches
+namespace MechanicalWoodSplitter.Code.HarmonyPatches
 {
     [HarmonyPatch(typeof(BEHelveHammer), "GenHammerMesh")]
     public static class UseItemShapeForHelveAnimator

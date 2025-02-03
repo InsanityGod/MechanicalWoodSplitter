@@ -1,5 +1,5 @@
 ﻿using HarmonyLib;
-using MechanicalWoodSplitter.FakeStuff;
+using MechanicalWoodSplitter.Code.FakeStuff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.GameContent;
 
-namespace MechanicalWoodSplitter.HarmonyPatches
+namespace MechanicalWoodSplitter.Code.HarmonyPatches
 {
     [HarmonyPatch(typeof(BlockEntityAnvil), nameof(BlockEntityAnvil.OnHelveHammerHit))]
     public static class ReimplementDefaultSound

@@ -8,7 +8,7 @@ using Vintagestory.API.Common;
 using Vintagestory.GameContent;
 using Vintagestory.GameContent.Mechanics;
 
-namespace MechanicalWoodSplitter.HarmonyPatches
+namespace MechanicalWoodSplitter.Code.HarmonyPatches
 {
     [HarmonyPatch(typeof(BlockHelveHammer), "OnBlockInteractStart")]
     public static class PlaceAxeOnHelveBasePatch
