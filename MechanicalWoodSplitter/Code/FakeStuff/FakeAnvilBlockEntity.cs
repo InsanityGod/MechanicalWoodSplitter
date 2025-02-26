@@ -6,12 +6,13 @@ using Vintagestory.GameContent;
 using Vintagestory.GameContent.Mechanics;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
+using InDappledGroves.Util.Config;
 
 namespace MechanicalWoodSplitter.Code.FakeStuff
 {
     public class FakeBlockEntityAnvil : BlockEntityAnvil
     {
-        public IDGBEWorkstation ChoppingBlock { get; internal set; }
+        public IDGBEWorkstation workstation { get; internal set; }
 
         public ItemStack HelveAxeStack => (HelveAxeBehavior.Blockentity as BEHelveHammer)?.HammerStack;
 
@@ -19,49 +20,45 @@ namespace MechanicalWoodSplitter.Code.FakeStuff
 
         public FakeBlockEntityAnvil(HelveAxeBaseBlockEntitybehavior helveAxeBehavior) => HelveAxeBehavior = helveAxeBehavior;
 
-        //caching this since someone made their config class internal :P
-        private float? baseWorkstationMiningSpdMult_cache;
-
         public override void OnHelveHammerHit()
         {
-            if (HelveAxeBehavior.Api.Side != EnumAppSide.Server || ChoppingBlock == null || HelveAxeStack?.Collectible is not HelveAxe) return;
+            if (HelveAxeBehavior.Api.Side != EnumAppSide.Server || workstation == null || HelveAxeStack?.Collectible is not HelveAxe) return;
 
-            ChoppingBlock.recipecomplete = false;
-            if (ChoppingBlock.InputSlot.Empty) return;
+            workstation.recipecomplete = false;
+            if (workstation.InputSlot.Empty) return;
 
-            HelveAxeBehavior.Api.World.PlaySoundAt(new AssetLocation("sounds/block/chop2"), ChoppingBlock.Pos.X, ChoppingBlock.Pos.Y, ChoppingBlock.Pos.Z, null);
+            HelveAxeBehavior.Api.World.PlaySoundAt(new AssetLocation("sounds/block/chop2"), workstation.Pos.X, workstation.Pos.Y, workstation.Pos.Z, null);
 
-            ChoppingBlock.recipeHandler.GetMatchingRecipes(
+            workstation.recipeHandler.GetMatchingRecipes(
                 HelveAxeBehavior.Api.World,
-                ChoppingBlock.InputSlot,
+                workstation.InputSlot,
                 "chopping",
-                ChoppingBlock.Block.Attributes["inventoryclass"].ToString(),
-                ChoppingBlock.Block.Attributes["workstationproperties"]["workstationtype"].ToString(),
+                workstation.Block.Attributes["inventoryclass"].ToString(),
+                workstation.Block.Attributes["workstationproperties"]["workstationtype"].ToString(),
                 out var recipe
             );
 
-            ChoppingBlock.recipeHandler.recipe = recipe;
+            workstation.recipeHandler.recipe = recipe;
             if (recipe == null) return;
 
 
             ProgressRecipe();
-            ChoppingBlock.updateMeshes();
-            ChoppingBlock.MarkDirty(true);
+            workstation.updateMeshes();
+            workstation.MarkDirty(true);
         }
 
         public bool ProgressRecipe()
         {
             if (HelveAxeBehavior.Api.Side != EnumAppSide.Server) return false;
-            baseWorkstationMiningSpdMult_cache ??= Traverse.Create(AccessTools.TypeByName("InDappledGroves.Util.Config.IDGToolConfig")).Property("Current").Property<float>("baseWorkstationResistanceMult").Value;
+            
+            ItemStack inputStack = workstation.InputSlot.Itemstack;
+            workstation.recipeHandler.resistance = (inputStack.Block != null ? inputStack.Block.Resistance : inputStack.Item.Attributes["resistance"].AsFloat(0f)) * IDGToolConfig.Current.baseWorkstationResistanceMult;
 
-            ItemStack inputStack = ChoppingBlock.InputSlot.Itemstack;
-            ChoppingBlock.recipeHandler.resistance = (inputStack.Block != null ? inputStack.Block.Resistance : inputStack.Item.Attributes["resistance"].AsFloat(0f)) * baseWorkstationMiningSpdMult_cache.Value;
+            workstation.recipeHandler.curDmgFromMiningSpeed = (HelveAxeStack.Collectible as HelveAxe).HelveAxeDamage * IDGToolConfig.Current.baseWorkstationMiningSpdMult;
+            workstation.recipeHandler.currentMiningDamage += 0.5f * workstation.recipeHandler.curDmgFromMiningSpeed;
+            workstation.recipeHandler.recipeProgress = workstation.recipeHandler.currentMiningDamage / workstation.recipeHandler.resistance;
 
-            ChoppingBlock.recipeHandler.curDmgFromMiningSpeed = (HelveAxeStack.Collectible as HelveAxe).HelveAxeDamage * (1f + baseWorkstationMiningSpdMult_cache.Value);
-            ChoppingBlock.recipeHandler.currentMiningDamage += 0.5f * ChoppingBlock.recipeHandler.curDmgFromMiningSpeed;
-            ChoppingBlock.recipeHandler.recipeProgress = ChoppingBlock.recipeHandler.currentMiningDamage / ChoppingBlock.recipeHandler.resistance;
-
-            if (ChoppingBlock.recipeHandler.currentMiningDamage >= ChoppingBlock.recipeHandler.resistance)
+            if (workstation.recipeHandler.currentMiningDamage >= workstation.recipeHandler.resistance)
             {
                 FinishRecipe();
                 return true;
@@ -72,10 +69,10 @@ namespace MechanicalWoodSplitter.Code.FakeStuff
 
         public void FinishRecipe()
         {
-            ChoppingBlock.recipecomplete = true;
-            ItemStack resolvedItemstack = ChoppingBlock.recipeHandler.recipe.ReturnStack.ResolvedItemstack;
-            var craftedStack = ChoppingBlock.recipeHandler.recipe.TryCraftNow(HelveAxeBehavior.Api, ChoppingBlock.InputSlot);
-            ChoppingBlock.InputSlot.Itemstack = null;
+            workstation.recipecomplete = true;
+            ItemStack resolvedItemstack = workstation.recipeHandler.recipe.ReturnStack.ResolvedItemstack;
+            var craftedStack = workstation.recipeHandler.recipe.TryCraftNow(HelveAxeBehavior.Api, workstation.InputSlot);
+            workstation.InputSlot.Itemstack = null;
 
             if (resolvedItemstack.Collectible.FirstCodePart(0) != "air")
             {
@@ -83,19 +80,19 @@ namespace MechanicalWoodSplitter.Code.FakeStuff
                 {
                     craftedStack.StackSize += 1;
                 }
-                else ChoppingBlock.InputSlot.Itemstack = resolvedItemstack.Clone();
+                else workstation.InputSlot.Itemstack = resolvedItemstack.Clone();
             }
 
             SpawnOutput(craftedStack);
 
-            ChoppingBlock.recipeHandler.clearRecipe(true);
+            workstation.recipeHandler.clearRecipe(true);
         }
 
         public void SpawnOutput(ItemStack output)
         {
             for (int i = output.StackSize; i > 0; i--)
             {
-                HelveAxeBehavior.Api.World.SpawnItemEntity(new ItemStack(output.Collectible, 1), ChoppingBlock.Pos.ToVec3d(), new Vec3d(0.05000000074505806, 0.10000000149011612, 0.05000000074505806));
+                HelveAxeBehavior.Api.World.SpawnItemEntity(new ItemStack(output.Collectible, 1), workstation.Pos.ToVec3d(), new Vec3d(0.05000000074505806, 0.10000000149011612, 0.05000000074505806));
             }
         }
     }

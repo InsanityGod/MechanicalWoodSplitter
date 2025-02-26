@@ -29,7 +29,7 @@ namespace MechanicalWoodSplitter.Code.HarmonyPatches
                 }
 
                 var pos = traverse.Field("anvilPos").GetValue<BlockPos>();
-                helveAxeBehavior.FakeAnvil.ChoppingBlock = __instance.Api.World.BlockAccessor.GetBlockEntity<IDGBEWorkstation>(pos);
+                helveAxeBehavior.FakeAnvil.workstation = __instance.Api.World.BlockAccessor.GetBlockEntity<IDGBEWorkstation>(pos);
             }
         }
     }
